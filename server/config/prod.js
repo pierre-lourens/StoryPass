@@ -1,0 +1,2 @@
+// for prod
+module.exports = {};
