@@ -1,11 +1,14 @@
-import React from "react";
+//moved this to components
 
-function App() {
-  return (
-    <div>
-      <p>Hello world</p>
-    </div>
-  );
-}
+// import React from "react";
 
-export default App;
+// function App() {
+//   return (
+//     <div>
+//       <p>Hello world</p>
+//     </div>
+//   );
+// }
+
+// export default App;
+
