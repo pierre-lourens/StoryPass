@@ -5,6 +5,8 @@ module.exports = function (app) {
   // retrieve all users
   app.get("/users", users.findAll);
 
+  app.post("/users", users.addUser);
+
   app.use((req, res) => {
     res.status(404).send("404 error! Resource not found.");
   });
