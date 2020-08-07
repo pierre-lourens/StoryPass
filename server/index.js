@@ -30,9 +30,9 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // pass the express app to our routes
-router(app);
+// router(app);
 
-// create and listen to the http server 
+// create and listen to the http server
 const port = process.env.PORT || 5000;
 const server = http.createServer(app);
 server.listen(port);
