@@ -1,8 +1,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const router = require("./router");
+const cors = require("cors");
 
 const app = express();
+
+// to prevent errors from cross origin requests
+app.use(cors());
 
 // parse requests of content-type: application/json
 app.use(bodyParser.json());

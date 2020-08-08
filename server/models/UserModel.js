@@ -20,7 +20,7 @@ User.getAll = (result) => {
 };
 
 // add a new user
-User.addUser = (user, result) => {
+User.addText = (user, result) => {
   sql.query("INSERT INTO Users SET ?", user, (err, res) => {
     if (err) {
       console.log("error: ", err);
