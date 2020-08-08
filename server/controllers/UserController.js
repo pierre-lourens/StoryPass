@@ -13,7 +13,7 @@ exports.findAll = (req, res) => {
 };
 
 // Adds a new user to the dtabase
-exports.addUser = (req, res) => {
+exports.addText = (req, res) => {
   // Validate request
   if (!req.body) {
     res.status(400).send({ message: "Content cannot be empty" });
@@ -26,13 +26,14 @@ exports.addUser = (req, res) => {
     text: req.body.text,
   });
 
-  UserModel.addUser(user, (err, data) => {
+  UserModel.addText(user, (err, data) => {
     if (err) {
       res.status(500).send({
         message: err.message || "Some error occurred while creating the user",
       });
       return res.end();
     }
+    console.log(data);
 
     res.send(data);
   });
