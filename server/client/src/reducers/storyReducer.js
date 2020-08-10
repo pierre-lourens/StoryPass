@@ -13,7 +13,11 @@ export default function (state = [], action) {
     case STORE_TEXT:
       return [...state];
     case GET_STORY:
-      return action.payload.data;
+      if (action.payload.data) {
+        return action.payload.data;
+      } else {
+        return state;
+      }
     default:
       return state;
   }

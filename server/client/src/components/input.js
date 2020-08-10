@@ -17,11 +17,11 @@ class Input extends React.Component {
   }
 
   updateUser = (event) => {
-    this.setState({ userName: event.target.value }, () => {});
+    this.setState({ userName: event.target.value }, () => { });
   };
 
   updateText = (event) => {
-    this.setState({ text: event.target.value }, () => {});
+    this.setState({ text: event.target.value }, () => { });
   };
 
   handleSubmit = (event) => {
@@ -33,56 +33,58 @@ class Input extends React.Component {
 
   render() {
     return (
-      <FormContainer>
-        <Form>
-          <Form.Control
-            className='tag-input shadow-sm'
-            size='md'
-            type='text'
-            placeholder='User Name'
-            value={this.state.user}
-            onChange={this.updateUser}
-          />
-          <br />
-          <Form.Control
-            className='tag-input shadow-sm'
-            size='md'
-            type='textarea'
-            as='textarea'
-            rows='4'
-            placeholder='Enter Text Here.'
-            value={this.state.description}
-            onChange={this.updateText}
-          />
-          <br />
+      <Timer
+        initialTime={3000}
+        direction="backward"
+        startImmediately={false}
+        onStop={() => console.log("Timer stopped")}
+      >
+        {({ start, resume, pause, stop, reset, timerState }) => (
+        <React.Fragment>
+          <FormContainer>
+            <Form>
+              <Form.Control
+                className='tag-input shadow-sm'
+                size='md'
+                type='text'
+                placeholder='User Name'
+                value={this.state.user}
+                onChange={this.updateUser}
+              />
+              <br />
+              <Form.Control
+                className='tag-input shadow-sm'
+                size='md'
+                type='textarea'
+                as='textarea'
+                rows='4'
+                placeholder='Enter Text Here.'
+                value={this.state.description}
+                onChange={this.updateText}
+                onKeyPress={start}
+              />
+              <br />
 
-          <Timer
-            initialTime={180000}
-            direction="backward"
-            startImmediately={false}
-            >
-            {({ start, resume, pause, stop, reset, timerState }) => (
-              <React.Fragment>
-                
-              <TimerBox>
-                <span>Time Remaining: </span>
-                <Timer.Minutes /><span> minutes </span>
-                <Timer.Seconds /><span> seconds </span>
-              </TimerBox>
-              </React.Fragment>
-            )}
-          </Timer>
+                <TimerBox>
+                  <span>Time Remaining: </span>
+                  <Timer.Minutes /><span> minutes </span>
+                  <Timer.Seconds /><span> seconds </span>
+                </TimerBox>
 
-          <button
-            onClick={this.handleSubmit}
-            id='tag-submit'
-            size='lg'
-            type='submit'
-            className='btn btn-primary btn-sm'>
-            Submit
+
+              <button
+                onClick={this.handleSubmit}
+                id='tag-submit'
+                size='lg'
+                type='submit'
+                className='btn btn-primary btn-sm'>
+                Submit
           </button>
-        </Form>
-      </FormContainer>
+            </Form>
+          </FormContainer>
+        </React.Fragment>
+        )}
+      </Timer>
     );
   }
 }
