@@ -3,6 +3,8 @@ import { Form } from "react-bootstrap";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { storeText } from "../actions";
+import Styled from "styled-components";
+import Timer from 'react-compound-timer';
 
 class Input extends React.Component {
   constructor(props) {
@@ -31,7 +33,7 @@ class Input extends React.Component {
 
   render() {
     return (
-      <div>
+      <FormContainer>
         <Form>
           <Form.Control
             className='tag-input shadow-sm'
@@ -54,6 +56,23 @@ class Input extends React.Component {
           />
           <br />
 
+          <Timer
+            initialTime={180000}
+            direction="backward"
+            startImmediately={false}
+            >
+            {({ start, resume, pause, stop, reset, timerState }) => (
+              <React.Fragment>
+                
+              <TimerBox>
+                <span>Time Remaining: </span>
+                <Timer.Minutes /><span> minutes </span>
+                <Timer.Seconds /><span> seconds </span>
+              </TimerBox>
+              </React.Fragment>
+            )}
+          </Timer>
+
           <button
             onClick={this.handleSubmit}
             id='tag-submit'
@@ -63,10 +82,37 @@ class Input extends React.Component {
             Submit
           </button>
         </Form>
-      </div>
+      </FormContainer>
     );
   }
 }
+
+//Styles
+
+const FormContainer = Styled.div`
+width: 50%;
+margin: 20px auto;
+text-align: right;
+`;
+
+const TimerBox = Styled.div`
+display: inline-block;
+float: left;
+padding: 5px;
+text-align: left;
+border: 1px solid black;
+`;
+
+//example:
+// const Poster = styled.img`
+//   box-shadow: 0 0 30px white;
+//   &:hover {
+//     transform: scale(1.06);
+//     transition-duration: 300ms;
+//   }
+// `;
+
+//Redux
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ storeText }, dispatch);
