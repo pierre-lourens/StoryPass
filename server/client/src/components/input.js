@@ -13,6 +13,7 @@ class Input extends React.Component {
     this.state = {
       userName: "",
       text: "",
+      allowTyping: true
     };
   }
 
@@ -34,10 +35,19 @@ class Input extends React.Component {
   render() {
     return (
       <Timer
-        initialTime={3000}
+        initialTime={60000 * 3}
         direction="backward"
         startImmediately={false}
-        onStop={() => console.log("Timer stopped")}
+        onStart={() => {console.log("Timer start")}}
+        checkpoints={[
+          {
+              time: 0,
+              callback: () => {
+                console.log('Times up')
+                this.setState({allowTyping: false})
+              },
+          }
+      ]}
       >
         {({ start, resume, pause, stop, reset, timerState }) => (
         <React.Fragment>
@@ -71,7 +81,6 @@ class Input extends React.Component {
                   <Timer.Seconds /><span> seconds </span>
                 </TimerBox>
 
-
               <button
                 onClick={this.handleSubmit}
                 id='tag-submit'
@@ -79,7 +88,7 @@ class Input extends React.Component {
                 type='submit'
                 className='btn btn-primary btn-sm'>
                 Submit
-          </button>
+            </button>
             </Form>
           </FormContainer>
         </React.Fragment>
@@ -100,9 +109,10 @@ text-align: right;
 const TimerBox = Styled.div`
 display: inline-block;
 float: left;
-padding: 5px;
+padding: 7px;
 text-align: left;
-border: 1px solid black;
+border: 1px solid #cd4905;
+border-radius: 5px;
 `;
 
 //example:
