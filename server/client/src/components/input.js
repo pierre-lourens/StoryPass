@@ -32,15 +32,22 @@ class Input extends React.Component {
   handleSubmit = (event) => {
     // event.preventDefault();
     console.log(this.state);
-    // make API call to store text
-    this.props.storeText(this.state);
-    this.setState({text: ""})
+    
+    //check if text field is empty 
+    if (this.state.text && this.state.userName) {
+      // make API call to store text
+      this.props.storeText(this.state);
+      this.setState({text: ""})
+      alert("Time's up!")
+    } else {
+      alert("Username or text field empty")
+    }
   };
 
   render() {
     return (
       <Timer
-        initialTime={60000 * .1}
+        initialTime={5000}
         direction="backward"
         startImmediately={false}
         onStart={() => {console.log("Timer start")}}
@@ -92,7 +99,7 @@ class Input extends React.Component {
                 onClick={this.handleSubmit}
                 id='tag-submit'
                 size='lg'
-                type='submit'
+                type='button'
                 className='btn btn-primary btn-sm'>
                 Submit
             </button>
