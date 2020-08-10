@@ -15,6 +15,10 @@ class Input extends React.Component {
       text: "",
       allowTyping: true
     };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.updateUser = this.updateUser.bind(this);
+    this.updateText = this.updateText.bind(this);
   }
 
   updateUser = (event) => {
@@ -26,16 +30,17 @@ class Input extends React.Component {
   };
 
   handleSubmit = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     console.log(this.state);
     // make API call to store text
     this.props.storeText(this.state);
+    this.setState({text: ""})
   };
 
   render() {
     return (
       <Timer
-        initialTime={60000 * 3}
+        initialTime={60000 * .1}
         direction="backward"
         startImmediately={false}
         onStart={() => {console.log("Timer start")}}
@@ -44,7 +49,7 @@ class Input extends React.Component {
               time: 0,
               callback: () => {
                 console.log('Times up')
-                this.setState({allowTyping: false})
+                this.handleSubmit()
               },
           }
       ]}
@@ -52,7 +57,9 @@ class Input extends React.Component {
         {({ start, resume, pause, stop, reset, timerState }) => (
         <React.Fragment>
           <FormContainer>
-            <Form>
+            <Form
+              onSubmit={event => {event.preventDefault()}}
+            >
               <Form.Control
                 className='tag-input shadow-sm'
                 size='md'
@@ -69,7 +76,7 @@ class Input extends React.Component {
                 as='textarea'
                 rows='4'
                 placeholder='Enter Text Here.'
-                value={this.state.description}
+                value={this.state.text}
                 onChange={this.updateText}
                 onKeyPress={start}
               />
