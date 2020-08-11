@@ -16,14 +16,16 @@ class Story extends React.Component {
   }
 
   renderStory = () => {
-    return this.props.story.map((entry) => {
-      return (
-        <React.Fragment>
+
+      return this.props.story.map((entry, index) => {
+        return (
+          <React.Fragment key={index}>
           {entry.text}
           <br />
         </React.Fragment>
       );
     });
+  
   };
 
   render() {
