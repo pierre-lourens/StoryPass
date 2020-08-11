@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { storeText } from "../actions";
 import Styled from "styled-components";
-import Timer from 'react-compound-timer';
+import Timer from "react-compound-timer";
 
 class Input extends React.Component {
   constructor(props) {
@@ -13,7 +13,7 @@ class Input extends React.Component {
     this.state = {
       userName: "",
       text: "",
-      allowTyping: true
+      allowTyping: true,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -22,25 +22,24 @@ class Input extends React.Component {
   }
 
   updateUser = (event) => {
-    this.setState({ userName: event.target.value }, () => { });
+    this.setState({ userName: event.target.value }, () => {});
   };
 
   updateText = (event) => {
-    this.setState({ text: event.target.value }, () => { });
+    this.setState({ text: event.target.value }, () => {});
   };
 
   handleSubmit = (event) => {
-    // event.preventDefault();
     console.log(this.state);
-    
-    //check if text field is empty 
+
+    //check if text field is empty
     if (this.state.text && this.state.userName) {
       // make API call to store text
       this.props.storeText(this.state);
-      this.setState({text: ""})
-      alert("Time's up!")
+      this.setState({ text: "" });
+      alert("Time's up!");
     } else {
-      alert("Username or text field empty")
+      alert("Username or text field empty");
     }
   };
 
@@ -48,64 +47,68 @@ class Input extends React.Component {
     return (
       <Timer
         initialTime={5000}
-        direction="backward"
+        direction='backward'
         startImmediately={false}
-        onStart={() => {console.log("Timer start")}}
+        onStart={() => {
+          console.log("Timer start");
+        }}
         checkpoints={[
           {
-              time: 0,
-              callback: () => {
-                console.log('Times up')
-                this.handleSubmit()
-              },
-          }
-      ]}
-      >
+            time: 0,
+            callback: () => {
+              console.log("Times up");
+              this.handleSubmit();
+            },
+          },
+        ]}>
         {({ start, resume, pause, stop, reset, timerState }) => (
-        <React.Fragment>
-          <FormContainer>
-            <Form
-              onSubmit={event => {event.preventDefault()}}
-            >
-              <Form.Control
-                className='tag-input shadow-sm'
-                size='md'
-                type='text'
-                placeholder='User Name'
-                value={this.state.user}
-                onChange={this.updateUser}
-              />
-              <br />
-              <Form.Control
-                className='tag-input shadow-sm'
-                size='md'
-                type='textarea'
-                as='textarea'
-                rows='4'
-                placeholder='Enter Text Here.'
-                value={this.state.text}
-                onChange={this.updateText}
-                onKeyPress={start}
-              />
-              <br />
+          <React.Fragment>
+            <FormContainer>
+              <Form
+                onSubmit={(event) => {
+                  event.preventDefault();
+                }}>
+                <Form.Control
+                  className='tag-input shadow-sm'
+                  size='md'
+                  type='text'
+                  placeholder='User Name'
+                  value={this.state.user}
+                  onChange={this.updateUser}
+                />
+                <br />
+                <Form.Control
+                  className='tag-input shadow-sm'
+                  size='md'
+                  type='textarea'
+                  as='textarea'
+                  rows='4'
+                  placeholder='Enter Text Here.'
+                  value={this.state.text}
+                  onChange={this.updateText}
+                  onKeyPress={start}
+                />
+                <br />
 
                 <TimerBox>
                   <span>Time Remaining: </span>
-                  <Timer.Minutes /><span> minutes </span>
-                  <Timer.Seconds /><span> seconds </span>
+                  <Timer.Minutes />
+                  <span> minutes </span>
+                  <Timer.Seconds />
+                  <span> seconds </span>
                 </TimerBox>
 
-              <button
-                onClick={this.handleSubmit}
-                id='tag-submit'
-                size='lg'
-                type='button'
-                className='btn btn-primary btn-sm'>
-                Submit
-            </button>
-            </Form>
-          </FormContainer>
-        </React.Fragment>
+                <button
+                  onClick={this.handleSubmit}
+                  id='tag-submit'
+                  size='lg'
+                  type='button'
+                  className='btn btn-primary btn-sm'>
+                  Submit
+                </button>
+              </Form>
+            </FormContainer>
+          </React.Fragment>
         )}
       </Timer>
     );
