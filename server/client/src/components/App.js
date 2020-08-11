@@ -1,5 +1,5 @@
 import React from "react";
-import Input from "./Input.js";
+import Input from "./InputForm.js";
 import Story from "./Story.js";
 
 function App() {
