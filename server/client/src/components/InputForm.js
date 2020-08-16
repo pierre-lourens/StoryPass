@@ -15,10 +15,6 @@ class Input extends React.Component {
       text: "",
       timeLeft: true,
     };
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.updateUser = this.updateUser.bind(this);
-    this.updateText = this.updateText.bind(this);
   }
 
   updateUser = (event) => {
@@ -42,10 +38,6 @@ class Input extends React.Component {
       alert("Username or text field empty");
     }
   };
-
-  renderResetButton = () => {
-
-  }
 
   render() {
     return (
@@ -95,15 +87,7 @@ class Input extends React.Component {
                 />
                 <br />
 
-                <TimerBox
-                  checkpoints={[
-                    {
-                      time: 0,
-                      callback: () => {
-                        console.log("timer box times up")
-                      },
-                    },
-                  ]}>
+                <TimerBox>
                   <span>Time Remaining: </span>
                   <Timer.Minutes />
                   <span> minutes </span>
