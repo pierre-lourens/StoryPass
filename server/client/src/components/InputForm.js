@@ -22,11 +22,11 @@ class Input extends React.Component {
   }
 
   updateUser = (event) => {
-    this.setState({ userName: event.target.value }, () => {});
+    this.setState({ userName: event.target.value }, () => { });
   };
 
   updateText = (event) => {
-    this.setState({ text: event.target.value }, () => {});
+    this.setState({ text: event.target.value }, () => { });
   };
 
   handleSubmit = (event) => {
@@ -44,11 +44,7 @@ class Input extends React.Component {
   };
 
   renderResetButton = () => {
-    if (this.state.timeLeft == false) {
-      return (
-        <bu
-      )
-    }
+
   }
 
   render() {
@@ -60,16 +56,13 @@ class Input extends React.Component {
         onStart={() => {
           console.log("Timer start");
         }}
-        onStop={() => {
-          reset()
-        }}
         checkpoints={[
           {
             time: 0,
             callback: () => {
               console.log("Times up");
               this.handleSubmit();
-              this.setState({timeLeft: false})
+              this.setState({ timeLeft: false })
             },
           },
         ]}>
@@ -103,14 +96,14 @@ class Input extends React.Component {
                 <br />
 
                 <TimerBox
-                checkpoints={[
-                  {
-                    time: 0,
-                    callback: () => {
-                      console.log("timer box times up")
+                  checkpoints={[
+                    {
+                      time: 0,
+                      callback: () => {
+                        console.log("timer box times up")
+                      },
                     },
-                  },
-                ]}>
+                  ]}>
                   <span>Time Remaining: </span>
                   <Timer.Minutes />
                   <span> minutes </span>
@@ -118,14 +111,29 @@ class Input extends React.Component {
                   <span> seconds </span>
                 </TimerBox>
 
-                <FormButton
-                  onClick={this.handleSubmit}
-                  id='tag-submit'
+                {/* When timer runs out, render reset button, else show submit button */}
+                {this.state.timeLeft == false ? (
+                  <FormButton
+                    id="reset-timer-button"
+                    onClick={() => {
+                      reset();
+                      this.setState({ timeLeft: true })
+                    }}
                   >
-                  Submit
-                </FormButton>
+                    Reset
+                  </FormButton>
+                ) : (
+                  <FormButton
+                    onClick={this.handleSubmit}
+                    id='tag-submit'
+                  >
+                    Submit
+                  </FormButton>
+                )}
+
               </Form>
             </FormContainer>
+
           </React.Fragment>
         )}
       </Timer>
@@ -145,7 +153,7 @@ const FormButton = Styled.button`
   size='lg'
   type='button'
   className='btn btn-primary btn-sm'
-`;  
+`;
 
 const TimerBox = Styled.div`
 display: inline-block;
