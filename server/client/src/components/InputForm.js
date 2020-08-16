@@ -13,7 +13,7 @@ class Input extends React.Component {
     this.state = {
       userName: "",
       text: "",
-      allowTyping: true,
+      timeLeft: true,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -43,6 +43,14 @@ class Input extends React.Component {
     }
   };
 
+  renderResetButton = () => {
+    if (this.state.timeLeft == false) {
+      return (
+        <bu
+      )
+    }
+  }
+
   render() {
     return (
       <Timer
@@ -52,12 +60,16 @@ class Input extends React.Component {
         onStart={() => {
           console.log("Timer start");
         }}
+        onStop={() => {
+          reset()
+        }}
         checkpoints={[
           {
             time: 0,
             callback: () => {
               console.log("Times up");
               this.handleSubmit();
+              this.setState({timeLeft: false})
             },
           },
         ]}>
@@ -90,7 +102,15 @@ class Input extends React.Component {
                 />
                 <br />
 
-                <TimerBox>
+                <TimerBox
+                checkpoints={[
+                  {
+                    time: 0,
+                    callback: () => {
+                      console.log("timer box times up")
+                    },
+                  },
+                ]}>
                   <span>Time Remaining: </span>
                   <Timer.Minutes />
                   <span> minutes </span>
@@ -98,14 +118,12 @@ class Input extends React.Component {
                   <span> seconds </span>
                 </TimerBox>
 
-                <button
+                <FormButton
                   onClick={this.handleSubmit}
                   id='tag-submit'
-                  size='lg'
-                  type='button'
-                  className='btn btn-primary btn-sm'>
+                  >
                   Submit
-                </button>
+                </FormButton>
               </Form>
             </FormContainer>
           </React.Fragment>
@@ -122,6 +140,12 @@ width: 50%;
 margin: 20px auto;
 text-align: right;
 `;
+
+const FormButton = Styled.button`
+  size='lg'
+  type='button'
+  className='btn btn-primary btn-sm'
+`;  
 
 const TimerBox = Styled.div`
 display: inline-block;
