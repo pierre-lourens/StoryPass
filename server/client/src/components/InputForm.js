@@ -42,7 +42,9 @@ class Input extends React.Component {
   render() {
     return (
       <Timer
-        initialTime={5000}
+      // for testing (uncomment to set timer to 5 seconds)
+        // initialTime={5000}
+        initialTime={60000 * 3}
         direction='backward'
         startImmediately={false}
         onStart={() => {
@@ -96,7 +98,7 @@ class Input extends React.Component {
                 </TimerBox>
 
                 {/* When timer runs out, render reset button, else show submit button */}
-                {this.state.timeLeft == false ? (
+                {this.state.timeLeft === false ? (
                   <FormButton
                     id="reset-timer-button"
                     onClick={() => {
