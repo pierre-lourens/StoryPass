@@ -6,7 +6,6 @@ module.exports = function (app) {
   // retrieve all users
   app.get("/api/users", users.findAll);
 
-  // add a user's contribution to story
   app.post("/api/users", users.addText);
 
   // return a prompt from the prompts table
