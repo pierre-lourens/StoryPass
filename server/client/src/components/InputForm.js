@@ -13,20 +13,16 @@ class Input extends React.Component {
     this.state = {
       userName: "",
       text: "",
-      allowTyping: true,
+      timeLeft: true,
     };
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.updateUser = this.updateUser.bind(this);
-    this.updateText = this.updateText.bind(this);
   }
 
   updateUser = (event) => {
-    this.setState({ userName: event.target.value }, () => {});
+    this.setState({ userName: event.target.value }, () => { });
   };
 
   updateText = (event) => {
-    this.setState({ text: event.target.value }, () => {});
+    this.setState({ text: event.target.value }, () => { });
   };
 
   handleSubmit = (event) => {
@@ -46,7 +42,9 @@ class Input extends React.Component {
   render() {
     return (
       <Timer
-        initialTime={5000}
+      // for testing (uncomment to set timer to 5 seconds)
+        // initialTime={5000}
+        initialTime={60000 * 3}
         direction='backward'
         startImmediately={false}
         onStart={() => {
@@ -58,6 +56,7 @@ class Input extends React.Component {
             callback: () => {
               console.log("Times up");
               this.handleSubmit();
+              this.setState({ timeLeft: false })
             },
           },
         ]}>
@@ -98,16 +97,29 @@ class Input extends React.Component {
                   <span> seconds </span>
                 </TimerBox>
 
-                <button
-                  onClick={this.handleSubmit}
-                  id='tag-submit'
-                  size='lg'
-                  type='button'
-                  className='btn btn-primary btn-sm'>
-                  Submit
-                </button>
+                {/* When timer runs out, render reset button, else show submit button */}
+                {this.state.timeLeft === false ? (
+                  <FormButton
+                    id="reset-timer-button"
+                    onClick={() => {
+                      reset();
+                      this.setState({ timeLeft: true })
+                    }}
+                  >
+                    Reset
+                  </FormButton>
+                ) : (
+                  <FormButton
+                    onClick={this.handleSubmit}
+                    id='tag-submit'
+                  >
+                    Submit
+                  </FormButton>
+                )}
+
               </Form>
             </FormContainer>
+
           </React.Fragment>
         )}
       </Timer>
@@ -121,6 +133,12 @@ const FormContainer = Styled.div`
 width: 50%;
 margin: 20px auto;
 text-align: right;
+`;
+
+const FormButton = Styled.button`
+  size='lg'
+  type='button'
+  className='btn btn-primary btn-sm'
 `;
 
 const TimerBox = Styled.div`
